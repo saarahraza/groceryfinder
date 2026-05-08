@@ -709,7 +709,7 @@ function nutritionFromNutriments(nutriments = {}) {
 function unitFromQuantity(quantity = "") {
   const compact = String(quantity).toLowerCase().replace(/\s+/g, "");
   const match = compact.match(/\d+(?:\.\d+)?\s?(?:g|kg|ml|l)/i);
-  return match ? `/${match[0]}` : "";
+  return match ? "/" + match[0] : "";
 }
 
 function normalizeCacheKey(item, postalCode) {
@@ -1145,7 +1145,7 @@ function withTimeout(promise, ms) {
   return Promise.race([
     promise,
     new Promise((_, reject) => {
-      setTimeout(() => reject(new Error(`Timed out after ${ms}ms`)), ms);
+      setTimeout(() => reject(new Error("Timed out after " + ms + "ms")), ms);
     })
   ]);
 }
