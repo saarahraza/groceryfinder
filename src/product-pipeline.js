@@ -632,16 +632,17 @@ function fallbackProfile(input) {
   if (/sidi ali/i.test(input)) return { input, lookup_phase: "generic_fallback", item_name: displayCase(input), brand: "Brand varies", image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80", category: "Grocery", nutrition: { serving: "varies", calories: "Check label", protein: "Check label", carbs: "Check label", fat: "Check label" }, base_price: 4.49, unit: "/ea" };
   const profile = fallbackProfiles.find((item) => item.match.test(input));
   if (profile) return { ...profile, input, lookup_phase: "local_profile" };
+  const guessed = guessProductCategory(input);
   return {
     input,
     lookup_phase: "generic_fallback",
     item_name: displayCase(input),
-    brand: "Brand varies",
-    image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80",
-    category: "Grocery",
+    brand: displayCase(input.split(" ")[0]),
+    image_url: guessed.image_url,
+    category: guessed.category,
     nutrition: { serving: "varies", calories: "Check label", protein: "Check label", carbs: "Check label", fat: "Check label" },
-    base_price: 4.49,
-    unit: "/ea"
+    base_price: guessed.base_price,
+    unit: guessed.unit
   };
 }
 
@@ -675,6 +676,25 @@ function isRelevantProduct(product, input) {
     brand: product.brands || product.brand || "",
     category: product.categories || product.category || ""
   }, input) >= minimumCandidateScore(input);
+}
+
+
+function guessProductCategory(input) {
+  const t = input.toLowerCase();
+  if (/drink|juice|water|soda|pop|beverage|energy|tea|coffee/.test(t)) return { category: "Beverages", base_price: 2.49, unit: "/ea", image_url: "https://images.unsplash.com/photo-1622543925917-763c34d1a86e?auto=format&fit=crop&w=900&q=80" };
+  if (/chip|crisp|snack|puff|cracker|pretzel|popcorn/.test(t)) return { category: "Snacks", base_price: 4.29, unit: "/bag", image_url: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=900&q=80" };
+  if (/bar|protein|granola/.test(t)) return { category: "Bars", base_price: 2.99, unit: "/bar", image_url: "https://images.unsplash.com/photo-1622484211148-66f167ffc1ee?auto=format&fit=crop&w=900&q=80" };
+  if (/chocolate|candy|gummy|sweet/.test(t)) return { category: "Candy", base_price: 3.49, unit: "/ea", image_url: "https://images.unsplash.com/photo-1548907040-4d42e11f9658?auto=format&fit=crop&w=900&q=80" };
+  if (/cookie|biscuit|wafer/.test(t)) return { category: "Cookies", base_price: 4.49, unit: "/ea", image_url: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=900&q=80" };
+  if (/milk|cream|cheese|butter|dairy/.test(t)) return { category: "Dairy", base_price: 5.49, unit: "/ea", image_url: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=900&q=80" };
+  if (/chicken|beef|pork|meat|turkey|salmon|fish/.test(t)) return { category: "Meat", base_price: 8.99, unit: "/ea", image_url: "https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=900&q=80" };
+  if (/bread|loaf|bagel|muffin|bun/.test(t)) return { category: "Bakery", base_price: 3.99, unit: "/ea", image_url: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80" };
+  if (/rice|pasta|noodle|grain|cereal|oat/.test(t)) return { category: "Pantry", base_price: 4.99, unit: "/ea", image_url: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=900&q=80" };
+  if (/sauce|ketchup|mustard|mayo|dressing/.test(t)) return { category: "Condiments", base_price: 3.99, unit: "/ea", image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80" };
+  if (/apple|banana|orange|grape|berry|fruit|vegetable|tomato|pepper/.test(t)) return { category: "Produce", base_price: 2.99, unit: "/ea", image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80" };
+  if (/shampoo|conditioner|soap|deodorant|toothpaste/.test(t)) return { category: "Personal Care", base_price: 5.99, unit: "/ea", image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80" };
+  if (/detergent|cleaner|dish|laundry|tide|lysol/.test(t)) return { category: "Household", base_price: 7.99, unit: "/ea", image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80" };
+  return { category: "Grocery", base_price: 4.49, unit: "/ea", image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80" };
 }
 
 function displayCase(value) {
