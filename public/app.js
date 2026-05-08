@@ -22,8 +22,9 @@ if (window.location.protocol === "file:") {
 }
 
 form.addEventListener("submit", async (event) => {
+  if (!wantedInput.value || !wantedInput.value.trim()) { event.preventDefault(); return; }
   event.preventDefault();
-  const wantedItems = wantedInput.value
+  const wantedItems = (wantedInput.value || "").trim() === "" ? [] : wantedInput.value
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean);
