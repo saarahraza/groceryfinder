@@ -529,7 +529,7 @@ function toDeal(product, storeConfig, postalCode, source) {
     image_url: product.image_url,
     category: product.category || "Grocery",
     nutrition: product.nutrition,
-    product_summary: (product.product_summary && !product.product_summary.includes("undefined")) ? product.product_summary : `${(product.item_name && product.item_name !== "undefined") ? product.item_name : "This item"} — price comparison across Oakville stores.``,
+    product_summary: (product.product_summary && !product.product_summary.includes("undefined")) ? product.product_summary : ((product.item_name && product.item_name !== "undefined") ? product.item_name : "This item") + " — price comparison across Oakville stores."`,
     product_url: product.product_url || buildExactStoreUrl(storeConfig.store, product.item_name, product.brand, product.input || product.wanted_item),
     store_url: storeConfig.store_url,
     flyer_url: storeConfig.flyer_url,
@@ -632,7 +632,7 @@ async function httpGet(url, params = {}, extraHeaders = {}) {
       validateStatus: (status) => status < 500 || status === 429
     });
     if (response.status === 429) throw new RateLimitError("Rate limited", response.headers?.["retry-after"]);
-    if (response.status >= 400) throw new Error(`HTTP ${response.status}`);
+    if (response.status >= 400) throw new Error("HTTP " + response.status);
     return response.data;
   } catch (error) {
     if (error instanceof RateLimitError) throw error;
@@ -646,7 +646,7 @@ async function httpGet(url, params = {}, extraHeaders = {}) {
         headers: { "user-agent": "Flyer-to-Bento-Agent/1.0", ...extraHeaders }
       }).finally(() => clearTimeout(timeout));
       if (response.status === 429) throw new RateLimitError("Rate limited", response.headers.get("retry-after"));
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      if (!response.ok) throw new Error("HTTP " + response.status);
       return response.json();
     }
     throw error;
