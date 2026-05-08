@@ -1,0 +1,71 @@
+{"at":"2026-05-08T02:42:08.481Z","phase":"fuzzy_match","input":"2 fairlife","detail":{"canonical":"fairlife Ultra-Filtered Milk","score":0.8}}
+{"at":"2026-05-08T02:42:09.093Z","phase":"open_food_facts_error","input":"2 fairlife","detail":{"message":"HTTP 503","retry_after":null}}
+{"at":"2026-05-08T02:42:09.095Z","phase":"fuzzy_match","input":"Dorito","detail":{"canonical":"Doritos Nacho Cheese","score":1}}
+{"at":"2026-05-08T02:42:11.858Z","phase":"fuzzy_match","input":"grapes","detail":{"canonical":"Red Seedless Grapes"}}
+{"at":"2026-05-08T02:42:11.904Z","phase":"upcitemdb_error","input":"grapes","detail":{"message":"Rate limited","retry_after":"26.825"}}
+{"at":"2026-05-08T02:42:14.195Z","phase":"fuzzy_match","input":"cauliflower","detail":{"canonical":"Cauliflower"}}
+{"at":"2026-05-08T02:42:14.240Z","phase":"upcitemdb_error","input":"cauliflower","detail":{"message":"Rate limited","retry_after":"24.493"}}
+{"at":"2026-05-08T02:42:20.202Z","phase":"open_food_facts_error","input":"cauliflower","detail":{"message":"This operation was aborted","retry_after":null}}
+{"at":"2026-05-08T02:42:20.205Z","phase":"fuzzy_match","input":"bread","detail":{"canonical":"Dempster's Bread"}}
+{"at":"2026-05-08T02:42:24.919Z","phase":"upcitemdb_error","input":"bread","detail":{"message":"Rate limited","retry_after":"13.86"}}
+{"at":"2026-05-08T02:42:26.209Z","phase":"open_food_facts_error","input":"bread","detail":{"message":"This operation was aborted","retry_after":null}}
+{"at":"2026-05-08T02:43:14.324Z","phase":"fuzzy_match","input":"Takis Fuego","detail":{"canonical":"Takis Fuego","score":0.45}}
+{"at":"2026-05-08T02:43:25.358Z","phase":"cache_hit","input":"Takis Fuego","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:43:27.977Z","phase":"cache_hit","input":"2 fairlife","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:43:27.978Z","phase":"cache_hit","input":"Dorito","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:43:27.978Z","phase":"cache_hit","input":"grapes","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:43:27.978Z","phase":"cache_hit","input":"cauliflower","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:43:27.978Z","phase":"cache_hit","input":"bread","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:43:36.219Z","phase":"fuzzy_match","input":"protein bar","detail":{"canonical":"Protein Bar"}}
+{"at":"2026-05-08T02:43:52.355Z","phase":"cache_hit","input":"2 fairlife","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:43:52.356Z","phase":"cache_hit","input":"Dorito","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:43:52.356Z","phase":"cache_hit","input":"grapes","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:43:52.356Z","phase":"cache_hit","input":"cauliflower","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:43:52.356Z","phase":"cache_hit","input":"bread","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:44:04.160Z","phase":"fuzzy_match","input":"1 protein bar","detail":{"canonical":"1 Protein Bar"}}
+{"at":"2026-05-08T02:44:13.432Z","phase":"cache_hit","input":"protein bar","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:44:15.567Z","phase":"cache_hit","input":"2 fairlife","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:44:15.567Z","phase":"cache_hit","input":"Dorito","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:44:15.568Z","phase":"cache_hit","input":"grapes","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:44:15.568Z","phase":"cache_hit","input":"cauliflower","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:44:15.568Z","phase":"cache_hit","input":"bread","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:45:07.292Z","phase":"fuzzy_match","input":"baguette","detail":{"canonical":"Baguette"}}
+{"at":"2026-05-08T02:45:07.784Z","phase":"open_food_facts_error","input":"baguette","detail":{"message":"HTTP 503","retry_after":null}}
+{"at":"2026-05-08T02:45:19.289Z","phase":"fuzzy_match","input":"baguette bread","detail":{"canonical":"Dempster's Bread"}}
+{"at":"2026-05-08T02:45:19.764Z","phase":"open_food_facts_error","input":"baguette bread","detail":{"message":"HTTP 503","retry_after":null}}
+{"at":"2026-05-08T02:45:38.674Z","phase":"fuzzy_match","input":"cheetos","detail":{"canonical":"Cheetos"}}
+{"at":"2026-05-08T02:45:39.274Z","phase":"open_food_facts_error","input":"cheetos","detail":{"message":"HTTP 503","retry_after":null}}
+{"at":"2026-05-08T02:49:12.549Z","phase":"fuzzy_match","input":"cheetos","detail":{"canonical":"Cheetos Crunchy Cheese Snacks","score":1}}
+{"at":"2026-05-08T02:50:00.242Z","phase":"fuzzy_match","input":"Cheetos Puffs","detail":{"canonical":"Cheetos Crunchy Cheese Snacks","score":1}}
+{"at":"2026-05-08T02:50:18.613Z","phase":"fuzzy_match","input":"pure protein","detail":{"canonical":"Pure Protein"}}
+{"at":"2026-05-08T02:50:18.804Z","phase":"upcitemdb_error","input":"pure protein","detail":{"message":"Rate limited","retry_after":"85120.313"}}
+{"at":"2026-05-08T02:50:27.158Z","phase":"fuzzy_match","input":"pure protein bar","detail":{"canonical":"Pure Protein Bar"}}
+{"at":"2026-05-08T02:50:27.353Z","phase":"upcitemdb_error","input":"pure protein bar","detail":{"message":"Rate limited","retry_after":"3.101"}}
+{"at":"2026-05-08T02:50:38.526Z","phase":"fuzzy_match","input":"quest bar","detail":{"canonical":"Quest Bar"}}
+{"at":"2026-05-08T02:50:38.926Z","phase":"upcitemdb_error","input":"quest bar","detail":{"message":"Rate limited","retry_after":"85100.198"}}
+{"at":"2026-05-08T02:50:39.348Z","phase":"open_food_facts_error","input":"quest bar","detail":{"message":"HTTP 503","retry_after":null}}
+{"at":"2026-05-08T02:52:12.502Z","phase":"cache_hit","input":"quest bar","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:53:44.130Z","phase":"fuzzy_match","input":"quest bar","detail":{"canonical":"Quest Protein Bar","score":1}}
+{"at":"2026-05-08T02:53:44.347Z","phase":"upcitemdb_error","input":"quest bar","detail":{"message":"Rate limited","retry_after":"84914.778"}}
+{"at":"2026-05-08T02:53:44.736Z","phase":"open_food_facts_error","input":"quest bar","detail":{"message":"HTTP 503","retry_after":null}}
+{"at":"2026-05-08T02:53:46.893Z","phase":"fuzzy_match","input":"Oreo Original Cookies","detail":{"canonical":"Oreo Original Cookies"}}
+{"at":"2026-05-08T02:53:46.942Z","phase":"upcitemdb_error","input":"Oreo Original Cookies","detail":{"message":"Rate limited","retry_after":"84912.175"}}
+{"at":"2026-05-08T02:53:59.864Z","phase":"cache_hit","input":"quest bar","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:54:16.998Z","phase":"fuzzy_match","input":"bar","detail":{"canonical":"Bar"}}
+{"at":"2026-05-08T02:54:17.221Z","phase":"upcitemdb_error","input":"bar","detail":{"message":"Rate limited","retry_after":"84881.897"}}
+{"at":"2026-05-08T02:55:35.503Z","phase":"cache_hit","input":"quest bar","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:56:03.491Z","phase":"cache_hit","input":"quest bar","detail":{"cache":"price"}}
+{"at":"2026-05-08T02:56:10.540Z","phase":"fuzzy_match","input":"cliff bar","detail":{"canonical":"CLIF Bar Energy Bar","score":0.89}}
+{"at":"2026-05-08T02:56:10.796Z","phase":"upcitemdb_error","input":"cliff bar","detail":{"message":"Rate limited","retry_after":"84768.322"}}
+{"at":"2026-05-08T02:58:18.156Z","phase":"fuzzy_match","input":"quest bar","detail":{"canonical":"Quest Protein Bar","score":1}}
+{"at":"2026-05-08T02:58:18.438Z","phase":"upcitemdb_error","input":"quest bar","detail":{"message":"Rate limited","retry_after":"84640.726"}}
+{"at":"2026-05-08T02:58:18.761Z","phase":"open_food_facts_error","input":"quest bar","detail":{"message":"HTTP 503","retry_after":null}}
+{"at":"2026-05-08T03:01:50.858Z","phase":"fuzzy_match","input":"Monster Energy","detail":{"canonical":"Monster Energy Ultra White","score":1}}
+{"at":"2026-05-08T03:01:51.071Z","phase":"upcitemdb_error","input":"Monster Energy","detail":{"message":"Rate limited","retry_after":"84428.094"}}
+{"at":"2026-05-08T03:02:35.233Z","phase":"fuzzy_match","input":"Monster Energy","detail":{"canonical":"Monster Energy Ultra White","score":1}}
+{"at":"2026-05-08T03:02:35.437Z","phase":"upcitemdb_error","input":"Monster Energy","detail":{"message":"Rate limited","retry_after":"84383.727"}}
+{"at":"2026-05-08T03:02:49.850Z","phase":"fuzzy_match","input":"Monster Energy","detail":{"canonical":"Monster Energy Ultra White","score":1}}
+{"at":"2026-05-08T03:02:50.025Z","phase":"upcitemdb_error","input":"Monster Energy","detail":{"message":"Rate limited","retry_after":"15.409"}}
+{"at":"2026-05-08T03:03:35.590Z","phase":"fuzzy_match","input":"cliff bar","detail":{"canonical":"CLIF Bar Energy Bar","score":1}}
+{"at":"2026-05-08T03:03:35.794Z","phase":"upcitemdb_error","input":"cliff bar","detail":{"message":"Rate limited","retry_after":"84323.37"}}
+{"at":"2026-05-08T03:03:36.308Z","phase":"open_food_facts_error","input":"cliff bar","detail":{"message":"HTTP 503","retry_after":null}}
