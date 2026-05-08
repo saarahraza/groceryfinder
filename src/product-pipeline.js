@@ -79,13 +79,6 @@ const fuzzyCatalog = [
   { terms: ["quest", "quest bar", "quest protein bar"], canonical: "Quest Protein Bar", brand: "Quest" },
   { terms: ["clif", "clif bar", "cliff", "cliff bar"], canonical: "CLIF Bar Energy Bar", brand: "CLIF" },
   { terms: ["kind bar", "kind"], canonical: "KIND Bar", brand: "KIND" },
-  { terms: ["eggs", "egg"], canonical: "Large Eggs 12 Pack", brand: "Burnbrae Farms" },
-  { terms: ["butter", "margarine"], canonical: "Lactantia Butter", brand: "Lactantia" },
-  { terms: ["cheese", "cheddar"], canonical: "Cracker Barrel Cheddar Cheese", brand: "Cracker Barrel" },
-  { terms: ["coffee", "ground coffee"], canonical: "Folgers Classic Roast Coffee", brand: "Folgers" },
-  { terms: ["sugar", "white sugar"], canonical: "Redpath White Sugar", brand: "Redpath" },
-  { terms: ["flour", "all purpose flour"], canonical: "Robin Hood All Purpose Flour", brand: "Robin Hood" },
-  { terms: ["cereal", "corn flakes"], canonical: "Kellogg Corn Flakes", brand: "Kellogg" },
   { terms: ["oats", "oatmeal", "quaker"], canonical: "Quaker Large Flake Oats", brand: "Quaker" },
   { terms: ["peanut butter", "peanutbutter"], canonical: "Kraft Peanut Butter", brand: "Kraft" },
   { terms: ["orange juice", "oj", "tropicana"], canonical: "Tropicana Orange Juice", brand: "Tropicana" },
@@ -119,13 +112,6 @@ const historicalPrices = {
   cauliflower: { base_price: 3.99, unit: "/head" },
   "red seedless grapes": { base_price: 2.49, unit: "/lb" },
   "greek yogurt": { base_price: 4.79, unit: "/750g" },
-  "large eggs 12 pack": { base_price: 3.99, unit: "/dozen" },
-  "lactantia butter": { base_price: 5.99, unit: "/454g" },
-  "cracker barrel cheddar cheese": { base_price: 7.49, unit: "/400g" },
-  "folgers classic roast coffee": { base_price: 9.99, unit: "/920g" },
-  "redpath white sugar": { base_price: 4.49, unit: "/2kg" },
-  "robin hood all purpose flour": { base_price: 5.99, unit: "/5kg" },
-  "kellogg corn flakes": { base_price: 4.99, unit: "/675g" },
   "quaker large flake oats": { base_price: 5.49, unit: "/1kg" },
   "kraft peanut butter": { base_price: 6.99, unit: "/1kg" },
   "tropicana orange juice": { base_price: 5.49, unit: "/1.75L" },
@@ -164,13 +150,6 @@ const fallbackProfiles = [
   { match: /^lays|lay's/i, item_name: "Lay's Classic Chips", brand: "Lay's", image_url: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=900&q=80", category: "Snacks", nutrition: { serving: "28g", calories: 160, protein: "2g", carbs: "15g", fat: "10g" }, base_price: 4.49, unit: "/235g" },
   { match: /gatorade/i, item_name: "Gatorade Thirst Quencher", brand: "Gatorade", image_url: "https://images.unsplash.com/photo-1622543925917-763c34d1a86e?auto=format&fit=crop&w=900&q=80", category: "Beverages", nutrition: { serving: "591ml", calories: 140, protein: "0g", carbs: "36g", fat: "0g" }, base_price: 1.99, unit: "/591ml" },
   { match: /prime hydration|prime drink/i, item_name: "Prime Hydration Drink", brand: "Prime", image_url: "https://images.unsplash.com/photo-1622543925917-763c34d1a86e?auto=format&fit=crop&w=900&q=80", category: "Beverages", nutrition: { serving: "500ml", calories: 25, protein: "2g", carbs: "5g", fat: "0g" }, base_price: 3.49, unit: "/500ml" },
-  { match: /^eggs?$|dozen eggs|large eggs/i, item_name: "Large Eggs 12 Pack", brand: "Burnbrae Farms", image_url: "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=900&q=80", category: "Dairy and eggs", nutrition: { serving: "1 large egg", calories: 70, protein: "6g", carbs: "0g", fat: "5g" }, base_price: 3.99, unit: "/dozen" },
-  { match: /butter|margarine/i, item_name: "Lactantia Butter", brand: "Lactantia", image_url: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=900&q=80", category: "Dairy", nutrition: { serving: "1 tbsp", calories: 100, protein: "0g", carbs: "0g", fat: "11g" }, base_price: 5.99, unit: "/454g" },
-  { match: /cheese|cheddar|mozzarella/i, item_name: "Cracker Barrel Cheddar Cheese", brand: "Cracker Barrel", image_url: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=900&q=80", category: "Dairy", nutrition: { serving: "30g", calories: 110, protein: "7g", carbs: "0g", fat: "9g" }, base_price: 7.49, unit: "/400g" },
-  { match: /coffee|ground coffee|folgers/i, item_name: "Folgers Classic Roast Coffee", brand: "Folgers", image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80", category: "Beverages", nutrition: { serving: "1 cup", calories: 2, protein: "0g", carbs: "0g", fat: "0g" }, base_price: 9.99, unit: "/920g" },
-  { match: /sugar|white sugar/i, item_name: "Redpath White Sugar", brand: "Redpath", image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80", category: "Pantry", nutrition: { serving: "1 tsp", calories: 15, protein: "0g", carbs: "4g", fat: "0g" }, base_price: 4.49, unit: "/2kg" },
-  { match: /flour|all purpose/i, item_name: "Robin Hood All Purpose Flour", brand: "Robin Hood", image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80", category: "Pantry", nutrition: { serving: "30g", calories: 110, protein: "3g", carbs: "23g", fat: "0g" }, base_price: 5.99, unit: "/5kg" },
-  { match: /cereal|corn flakes|kellogg/i, item_name: "Kellogg Corn Flakes", brand: "Kellogg", image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80", category: "Breakfast", nutrition: { serving: "30g", calories: 110, protein: "2g", carbs: "25g", fat: "0g" }, base_price: 4.99, unit: "/675g" },
   { match: /oat|oatmeal|quaker/i, item_name: "Quaker Large Flake Oats", brand: "Quaker", image_url: "https://images.unsplash.com/photo-1614961233913-a5113a4a34ed?auto=format&fit=crop&w=900&q=80", category: "Pantry", nutrition: { serving: "40g", calories: 150, protein: "5g", carbs: "27g", fat: "3g" }, base_price: 5.49, unit: "/1kg" },
   { match: /peanut butter/i, item_name: "Kraft Peanut Butter", brand: "Kraft", image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80", category: "Pantry", nutrition: { serving: "2 tbsp", calories: 190, protein: "7g", carbs: "7g", fat: "16g" }, base_price: 6.99, unit: "/1kg" },
   { match: /orange juice|tropicana/i, item_name: "Tropicana Orange Juice", brand: "Tropicana", image_url: "https://images.unsplash.com/photo-1622543925917-763c34d1a86e?auto=format&fit=crop&w=900&q=80", category: "Beverages", nutrition: { serving: "250ml", calories: 110, protein: "2g", carbs: "26g", fat: "0g" }, base_price: 5.49, unit: "/1.75L" },
@@ -517,9 +496,9 @@ function toDeal(product, storeConfig, postalCode, source) {
   const checkedAt = new Date().toISOString();
   const exactBarcodeMatch = Boolean(product.barcode && /^\d{8,14}$/.test(String(product.input || "")));
   return {
-    item_name: (product.item_name && product.item_name !== "undefined") ? product.item_name : displayCase(product.input || product.wanted_item || "Grocery Item"),
-    wanted_item: product.input || product.wanted_item || product.item_name || "item",
-    brand: (!product.brand || product.brand === "undefined" || product.brand === "Brand varies") ? (displayCase((product.input || "").split(" ")[0]) || "Store Brand") : product.brand,
+    item_name: product.item_name,
+    wanted_item: product.input || product.wanted_item || product.item_name,
+    brand: product.brand || "Brand varies",
     store: storeConfig.store,
     price: roundMoney(product.price),
     unit: product.unit || "/ea",
@@ -529,8 +508,8 @@ function toDeal(product, storeConfig, postalCode, source) {
     image_url: product.image_url,
     category: product.category || "Grocery",
     nutrition: product.nutrition,
-    product_summary: (product.product_summary && !product.product_summary.includes("undefined")) ? product.product_summary : ((product.item_name && product.item_name !== "undefined") ? product.item_name : "This item") + " — price comparison across Oakville stores."`,
-    product_url: product.product_url || buildExactStoreUrl(storeConfig.store, product.item_name, product.brand, product.input || product.wanted_item),
+    product_summary: product.product_summary || `${product.item_name} identified through ${product.lookup_phase || source}.`,
+    product_url: product.product_url || storeConfig.searchUrl(product.item_name),
     store_url: storeConfig.store_url,
     flyer_url: storeConfig.flyer_url,
     postal_code: postalCode,
@@ -618,7 +597,7 @@ function unitResult(value, unit) {
   return {
     normalized_price: normalized,
     normalized_unit: unit,
-    unit_price: "$" + normalized.toFixed(2) + unit
+    unit_price: `$${normalized.toFixed(2)}${unit}`
   };
 }
 
@@ -632,7 +611,7 @@ async function httpGet(url, params = {}, extraHeaders = {}) {
       validateStatus: (status) => status < 500 || status === 429
     });
     if (response.status === 429) throw new RateLimitError("Rate limited", response.headers?.["retry-after"]);
-    if (response.status >= 400) throw new Error("HTTP " + response.status);
+    if (response.status >= 400) throw new Error(`HTTP ${response.status}`);
     return response.data;
   } catch (error) {
     if (error instanceof RateLimitError) throw error;
@@ -646,7 +625,7 @@ async function httpGet(url, params = {}, extraHeaders = {}) {
         headers: { "user-agent": "Flyer-to-Bento-Agent/1.0", ...extraHeaders }
       }).finally(() => clearTimeout(timeout));
       if (response.status === 429) throw new RateLimitError("Rate limited", response.headers.get("retry-after"));
-      if (!response.ok) throw new Error("HTTP " + response.status);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return response.json();
     }
     throw error;
@@ -700,20 +679,20 @@ function nutritionFromNutriments(nutriments = {}) {
   return {
     serving: "100g",
     calories: nutriments["energy-kcal_100g"] ?? "Check label",
-    protein: nutriments.proteins_100g !== undefined ? (nutriments.proteins_100g + "g") : "Check label",
-    carbs: nutriments.carbohydrates_100g !== undefined ? (nutriments.carbohydrates_100g + "g") : "Check label",
-    fat: nutriments.fat_100g !== undefined ? (nutriments.fat_100g + "g") : "Check label"
+    protein: nutriments.proteins_100g !== undefined ? `${nutriments.proteins_100g}g` : "Check label",
+    carbs: nutriments.carbohydrates_100g !== undefined ? `${nutriments.carbohydrates_100g}g` : "Check label",
+    fat: nutriments.fat_100g !== undefined ? `${nutriments.fat_100g}g` : "Check label"
   };
 }
 
 function unitFromQuantity(quantity = "") {
   const compact = String(quantity).toLowerCase().replace(/\s+/g, "");
   const match = compact.match(/\d+(?:\.\d+)?\s?(?:g|kg|ml|l)/i);
-  return match ? "/" + match[0] : "";
+  return match ? `/${match[0]}` : "";
 }
 
 function normalizeCacheKey(item, postalCode) {
-  return ("v6:" + postalCode + ":" + item).toLowerCase().replace(/\s+/g, " ").trim();
+  return `v6:${postalCode}:${item}`.toLowerCase().replace(/\s+/g, " ").trim();
 }
 
 function isRelevantProduct(product, input) {
@@ -725,19 +704,6 @@ function isRelevantProduct(product, input) {
 }
 
 
-
-function buildExactStoreUrl(store, itemName, brand, userInput) {
-  const full = encodeURIComponent(itemName || userInput || "");
-  const generic = encodeURIComponent(userInput || itemName || "");
-  if (store === "No Frills") return `https://www.nofrills.ca/en/search?search-bar=${full}`;
-  if (store === "Metro") return `https://www.metro.ca/en/online-grocery/search?filter=${full}`;
-  if (store === "Food Basics") return `https://www.foodbasics.ca/search-page.en.html?search=${full}`;
-  if (store === "Walmart") return `https://www.walmart.ca/search?q=${full}&sort=price_asc`;
-  if (store === "Sobeys" || store === "FreshCo") return `https://voila.ca/search?q=${full}&sort=price`;
-  if (store === "Real Canadian Superstore") return `https://www.realcanadiansuperstore.ca/search?search-bar=${full}`;
-  return `https://flipp.com/search/${generic}`;
-}
-
 function guessProductCategory(input) {
   const t = input.toLowerCase();
   if (/drink|juice|water|soda|pop|beverage|energy|tea|coffee/.test(t)) return { category: "Beverages", base_price: 2.49, unit: "/ea", image_url: "https://images.unsplash.com/photo-1622543925917-763c34d1a86e?auto=format&fit=crop&w=900&q=80" };
@@ -745,8 +711,7 @@ function guessProductCategory(input) {
   if (/bar|protein|granola/.test(t)) return { category: "Bars", base_price: 2.99, unit: "/bar", image_url: "https://images.unsplash.com/photo-1622484211148-66f167ffc1ee?auto=format&fit=crop&w=900&q=80" };
   if (/chocolate|candy|gummy|sweet/.test(t)) return { category: "Candy", base_price: 3.49, unit: "/ea", image_url: "https://images.unsplash.com/photo-1548907040-4d42e11f9658?auto=format&fit=crop&w=900&q=80" };
   if (/cookie|biscuit|wafer/.test(t)) return { category: "Cookies", base_price: 4.49, unit: "/ea", image_url: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=900&q=80" };
-  if (/egg/.test(t)) return { category: "Dairy and eggs", base_price: 3.99, unit: "/dozen", image_url: "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=900&q=80" };
-  if (/milk|cream|cheese|butter|dairy|yogurt/.test(t)) return { category: "Dairy", base_price: 5.49, unit: "/ea", image_url: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=900&q=80" };
+  if (/milk|cream|cheese|butter|dairy/.test(t)) return { category: "Dairy", base_price: 5.49, unit: "/ea", image_url: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=900&q=80" };
   if (/chicken|beef|pork|meat|turkey|salmon|fish/.test(t)) return { category: "Meat", base_price: 8.99, unit: "/ea", image_url: "https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=900&q=80" };
   if (/bread|loaf|bagel|muffin|bun/.test(t)) return { category: "Bakery", base_price: 3.99, unit: "/ea", image_url: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80" };
   if (/rice|pasta|noodle|grain|cereal|oat/.test(t)) return { category: "Pantry", base_price: 4.99, unit: "/ea", image_url: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=900&q=80" };
@@ -784,19 +749,10 @@ function fuzzyIdentity(input) {
       confidence_score: roundMoney(best.score)
     };
   }
-  const guessed = guessProductCategory(input);
-  const cleanName = displayCase(input);
   return {
     ...fallbackProfile(input),
     canonical: input,
     input,
-    item_name: cleanName,
-    brand: cleanName.split(" ")[0] || "Store Brand",
-    category: guessed.category,
-    base_price: guessed.base_price,
-    unit: guessed.unit,
-    image_url: guessed.image_url,
-    product_summary: cleanName + " — price comparison across Oakville stores.",
     lookup_phase: "fuzzy_input"
   };
 }
@@ -1145,7 +1101,7 @@ function withTimeout(promise, ms) {
   return Promise.race([
     promise,
     new Promise((_, reject) => {
-      setTimeout(() => reject(new Error("Timed out after " + ms + "ms")), ms);
+      setTimeout(() => reject(new Error(`Timed out after ${ms}ms`)), ms);
     })
   ]);
 }
