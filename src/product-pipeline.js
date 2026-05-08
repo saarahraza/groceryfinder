@@ -496,7 +496,7 @@ function toDeal(product, storeConfig, postalCode, source) {
   const checkedAt = new Date().toISOString();
   const exactBarcodeMatch = Boolean(product.barcode && /^\d{8,14}$/.test(String(product.input || "")));
   return {
-    item_name: product.item_name,
+    item_name: (!product.item_name || product.item_name === "undefined") ? "Grocery Item" : product.item_name,
     wanted_item: product.input || product.wanted_item || product.item_name,
     brand: (!product.brand || product.brand === "undefined") ? "Store Brand" : product.brand,
     store: storeConfig.store,
