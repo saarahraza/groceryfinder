@@ -299,7 +299,7 @@ function hasRejectedIdentity(data) {
   return items.some((item) => {
     const wanted = String(item.wanted_item || "").toLowerCase();
     const name = String(item.item_name || "").toLowerCase();
-    return name.includes("sidi ali") && /bar|quest|clif|cliff|kind|protein/.test(wanted);
+    return name.includes("sidi ali");
   });
 }
 

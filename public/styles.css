@@ -232,7 +232,7 @@ h1 {
 
 .stats-card {
   grid-column: span 6;
-  position: sticky;
+  position: relative;
   top: 16px;
   min-height: 286px;
   background:
@@ -785,7 +785,7 @@ h1 {
 
 .nutrition-box {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
   margin: 12px 0;
 }
