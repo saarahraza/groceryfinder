@@ -382,7 +382,7 @@ async function genericProductProfile(itemName) {
   const nutrition = await fetchNutritionFromOpenFoodFacts(itemName) || { serving: 'varies', calories: 'Check label', protein: 'Check label', carbs: 'Check label', fat: 'Check label' };
   const clean = displayCase(itemName || 'Grocery item');
   return {
-    brand: "Store Brand",
+    brand: displayCase(itemName.split(" ")[0]) || "Store Brand",
     image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80",
     image_credit: "Unsplash grocery product photo",
     search_term: itemName,
