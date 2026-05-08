@@ -294,7 +294,7 @@ function simulatedInflation(data) {
   return Math.min(4.8, Math.max(-1.8, ((seed % 9) - 3) * 0.37 + (spend % 3) * 0.22));
 }
 
-function hasRejectedIdentity(data) {
+function hasRejectedIdentity(data) { return false; // disabled
   const items = data?.cheapest_path?.flatMap((store) => store.items || []) || [];
   return items.some((item) => {
     const wanted = String(item.wanted_item || "").toLowerCase();
