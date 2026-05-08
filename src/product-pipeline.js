@@ -902,8 +902,8 @@ function intentRuleFor(query) {
 function minimumCandidateScore(input) {
   const normalized = normalizeText(input);
   const terms = normalized.split(" ").filter((term) => term.length > 2);
-  if (terms.length <= 1) return 5;
-  return 4;
+  if (terms.length <= 1) return 3;
+  return 3;
 }
 
 function inferUnitFromText(text) {
