@@ -78,7 +78,16 @@ const fuzzyCatalog = [
   { terms: ["oreo", "oreos"], canonical: "Oreo Original Cookies", brand: "Oreo" },
   { terms: ["quest", "quest bar", "quest protein bar"], canonical: "Quest Protein Bar", brand: "Quest" },
   { terms: ["clif", "clif bar", "cliff", "cliff bar"], canonical: "CLIF Bar Energy Bar", brand: "CLIF" },
-  { terms: ["kind bar", "kind"], canonical: "KIND Bar", brand: "KIND" }
+  { terms: ["kind bar", "kind"], canonical: "KIND Bar", brand: "KIND" },
+  { terms: ["oreo", "oreos"], canonical: "Oreo Original Cookies", brand: "Oreo" },
+  { terms: ["celsius", "celsius drink"], canonical: "Celsius Energy Drink", brand: "Celsius" },
+  { terms: ["red bull", "redbull"], canonical: "Red Bull Energy Drink", brand: "Red Bull" },
+  { terms: ["lays", "lay's", "lays chips"], canonical: "Lay's Classic Chips", brand: "Lay's" },
+  { terms: ["pepsi"], canonical: "Pepsi Cola", brand: "Pepsi" },
+  { terms: ["coca cola", "coke"], canonical: "Coca-Cola", brand: "Coca-Cola" },
+  { terms: ["gatorade"], canonical: "Gatorade Thirst Quencher", brand: "Gatorade" },
+  { terms: ["prime", "prime hydration"], canonical: "Prime Hydration Drink", brand: "Prime" },
+  { terms: ["bodyarmor", "body armor"], canonical: "BODYARMOR SportWater", brand: "BODYARMOR" }
 ];
 
 const historicalPrices = {
@@ -93,7 +102,16 @@ const historicalPrices = {
   "dempster's bread": { base_price: 3.49, unit: "/loaf" },
   cauliflower: { base_price: 3.99, unit: "/head" },
   "red seedless grapes": { base_price: 2.49, unit: "/lb" },
-  "greek yogurt": { base_price: 4.79, unit: "/750g" }
+  "greek yogurt": { base_price: 4.79, unit: "/750g" },
+  "oreo original cookies": { base_price: 4.99, unit: "/432g" },
+  "celsius energy drink": { base_price: 2.99, unit: "/355ml" },
+  "red bull energy drink": { base_price: 3.29, unit: "/250ml" },
+  "lay's classic chips": { base_price: 4.49, unit: "/235g" },
+  "pepsi cola": { base_price: 1.49, unit: "/2L" },
+  "coca-cola": { base_price: 1.49, unit: "/2L" },
+  "gatorade thirst quencher": { base_price: 1.99, unit: "/591ml" },
+  "prime hydration drink": { base_price: 3.49, unit: "/500ml" },
+  "bodyarmor sportwater": { base_price: 2.49, unit: "/700ml" }
 };
 
 const fallbackProfiles = [
@@ -108,6 +126,12 @@ const fallbackProfiles = [
   { match: /bread|loaf/i, item_name: "Dempster's Bread", brand: "Dempster's", image_url: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80", category: "Bread and bakery", nutrition: { serving: "2 slices", calories: 170, protein: "6g", carbs: "32g", fat: "2g" }, base_price: 3.49, unit: "/loaf" },
   { match: /cauliflower/i, item_name: "Cauliflower", brand: "Fresh Produce", image_url: "https://images.unsplash.com/photo-1613743983303-b3e89f8a2b80?auto=format&fit=crop&w=900&q=80", category: "Produce", nutrition: { serving: "100g", calories: 25, protein: "2g", carbs: "5g", fat: "0.3g" }, base_price: 3.99, unit: "/head" },
   { match: /grape/i, item_name: "Red Seedless Grapes", brand: "Sun World", image_url: "https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=900&q=80", category: "Produce", nutrition: { serving: "100g", calories: 69, protein: "0.7g", carbs: "18g", fat: "0.2g" }, base_price: 2.49, unit: "/lb" },
+  { match: /oreo/i, item_name: "Oreo Original Cookies", brand: "Oreo", image_url: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=900&q=80", category: "Cookies", nutrition: { serving: "3 cookies", calories: 160, protein: "1g", carbs: "25g", fat: "7g" }, base_price: 4.99, unit: "/432g" },
+  { match: /celsius/i, item_name: "Celsius Energy Drink", brand: "Celsius", image_url: "https://images.unsplash.com/photo-1622543925917-763c34d1a86e?auto=format&fit=crop&w=900&q=80", category: "Beverages", nutrition: { serving: "355ml", calories: 10, protein: "0g", carbs: "2g", fat: "0g" }, base_price: 2.99, unit: "/355ml" },
+  { match: /red bull|redbull/i, item_name: "Red Bull Energy Drink", brand: "Red Bull", image_url: "https://images.unsplash.com/photo-1622543925917-763c34d1a86e?auto=format&fit=crop&w=900&q=80", category: "Beverages", nutrition: { serving: "250ml", calories: 110, protein: "1g", carbs: "28g", fat: "0g" }, base_price: 3.29, unit: "/250ml" },
+  { match: /^lays|lay's/i, item_name: "Lay's Classic Chips", brand: "Lay's", image_url: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=900&q=80", category: "Snacks", nutrition: { serving: "28g", calories: 160, protein: "2g", carbs: "15g", fat: "10g" }, base_price: 4.49, unit: "/235g" },
+  { match: /gatorade/i, item_name: "Gatorade Thirst Quencher", brand: "Gatorade", image_url: "https://images.unsplash.com/photo-1622543925917-763c34d1a86e?auto=format&fit=crop&w=900&q=80", category: "Beverages", nutrition: { serving: "591ml", calories: 140, protein: "0g", carbs: "36g", fat: "0g" }, base_price: 1.99, unit: "/591ml" },
+  { match: /prime hydration|prime drink/i, item_name: "Prime Hydration Drink", brand: "Prime", image_url: "https://images.unsplash.com/photo-1622543925917-763c34d1a86e?auto=format&fit=crop&w=900&q=80", category: "Beverages", nutrition: { serving: "500ml", calories: 25, protein: "2g", carbs: "5g", fat: "0g" }, base_price: 3.49, unit: "/500ml" },
   { match: /yogurt|yoghurt/i, item_name: "Greek Yogurt", brand: "Astro Original", image_url: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=80", category: "Dairy", nutrition: { serving: "175g", calories: 130, protein: "8g", carbs: "15g", fat: "3g" }, base_price: 4.79, unit: "/750g" }
 ];
 
