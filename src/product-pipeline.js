@@ -700,9 +700,9 @@ function nutritionFromNutriments(nutriments = {}) {
   return {
     serving: "100g",
     calories: nutriments["energy-kcal_100g"] ?? "Check label",
-    protein: nutriments.proteins_100g !== undefined ? `${nutriments.proteins_100g}g` : "Check label",
-    carbs: nutriments.carbohydrates_100g !== undefined ? `${nutriments.carbohydrates_100g}g` : "Check label",
-    fat: nutriments.fat_100g !== undefined ? `${nutriments.fat_100g}g` : "Check label"
+    protein: nutriments.proteins_100g !== undefined ? (nutriments.proteins_100g + "g") : "Check label",
+    carbs: nutriments.carbohydrates_100g !== undefined ? (nutriments.carbohydrates_100g + "g") : "Check label",
+    fat: nutriments.fat_100g !== undefined ? (nutriments.fat_100g + "g") : "Check label"
   };
 }
 
@@ -713,7 +713,7 @@ function unitFromQuantity(quantity = "") {
 }
 
 function normalizeCacheKey(item, postalCode) {
-  return `v6:${postalCode}:${item}`.toLowerCase().replace(/\s+/g, " ").trim();
+  return ("v6:" + postalCode + ":" + item).toLowerCase().replace(/\s+/g, " ").trim();
 }
 
 function isRelevantProduct(product, input) {
