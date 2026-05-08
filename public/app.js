@@ -31,6 +31,7 @@ form.addEventListener("submit", async (event) => {
 
   showSkeletons();
   setStatus("Hunting for the best price...", "busy");
+  await fetch("/api/clear-list", { method: "POST" }).catch(() => {});
   await fetch("/api/run-agent", {
     method: "POST",
     headers: { "content-type": "application/json" },
