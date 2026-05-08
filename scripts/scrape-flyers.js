@@ -317,18 +317,18 @@ function enrichDeal(deal) {
   };
 }
 
-function buildDemoDeals(postalCode, wantedItems) {
+async function buildDemoDeals(postalCode, wantedItems) {
   const wanted = [...new Set(wantedItems.map((item) => item.trim()).filter(Boolean))];
   const seeded = demoDeals.map((deal) => enrichDeal({ ...deal, postal_code: postalCode }));
-  const additions = wanted.flatMap((item) => {
+  const additions = (await Promise.all(wanted.map(async (item) => {
     const alreadyCovered = seeded.some((deal) => isSameGrocery(deal.item_name, item));
-    return alreadyCovered ? [] : synthesizeDealsForItem(item, postalCode);
-  });
+    return alreadyCovered ? [] : await synthesizeDealsForItem(item, postalCode);
+  }))).flat();
   return [...seeded, ...additions];
 }
 
-function synthesizeDealsForItem(itemName, postalCode) {
-  const profile = productProfiles.find((source) => source.match.test(itemName)) || genericProductProfile(itemName);
+async function synthesizeDealsForItem(itemName, postalCode) {
+  const profile = productProfiles.find((source) => source.match.test(itemName)) || await genericProductProfile(itemName);
   return Object.keys(storeSources).map((storeName, index) => enrichDeal({
     store: storeName,
     item_name: displayItemName(itemName, profile),
@@ -340,8 +340,31 @@ function synthesizeDealsForItem(itemName, postalCode) {
   }));
 }
 
-function genericProductProfile(itemName) {
-  const clean = displayCase(itemName || "Grocery item");
+
+async function fetchNutritionFromOpenFoodFacts(itemName) {
+  try {
+    const query = encodeURIComponent(itemName);
+    const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${query}&search_simple=1&action=process&json=1&page_size=1`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const product = data?.products?.[0];
+    if (!product) return null;
+    const n = product.nutriments || {};
+    return {
+      serving: product.serving_size || '100g',
+      calories: Math.round(n['energy-kcal_serving'] || n['energy-kcal_100g'] || 0),
+      protein: (n['proteins_serving'] || n['proteins_100g'] || 0) + 'g',
+      carbs: (n['carbohydrates_serving'] || n['carbohydrates_100g'] || 0) + 'g',
+      fat: (n['fat_serving'] || n['fat_100g'] || 0) + 'g'
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function genericProductProfile(itemName) {
+  const nutrition = await fetchNutritionFromOpenFoodFacts(itemName) || { serving: 'varies', calories: 'Check label', protein: 'Check label', carbs: 'Check label', fat: 'Check label' };
+  const clean = displayCase(itemName || 'Grocery item');
   return {
     brand: "Store Brand",
     image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80",
