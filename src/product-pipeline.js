@@ -605,6 +605,7 @@ async function writeJsonFile(filePath, value) {
 }
 
 function fallbackProfile(input) {
+  if (/sidi ali/i.test(input)) return { input, lookup_phase: "generic_fallback", item_name: displayCase(input), brand: "Brand varies", image_url: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80", category: "Grocery", nutrition: { serving: "varies", calories: "Check label", protein: "Check label", carbs: "Check label", fat: "Check label" }, base_price: 4.49, unit: "/ea" };
   const profile = fallbackProfiles.find((item) => item.match.test(input));
   if (profile) return { ...profile, input, lookup_phase: "local_profile" };
   return {
@@ -707,6 +708,7 @@ function mergeIdentities(fuzzy, openFoodFacts, upcItemDb, input) {
 
 function isSafeExternalIdentity(identity, fuzzy, input) {
   if (!identity) return false;
+  if (/sidi ali/i.test(identity.item_name || "") || /sidi ali/i.test(identity.brand || "")) return false;
   const score = scoreProductCandidate({
     title: identity.item_name || "",
     brand: identity.brand || "",
