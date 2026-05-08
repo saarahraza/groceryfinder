@@ -38,14 +38,14 @@
           <div class="search-meta">
             <div class="quick-chips">
               <span class="chips-label">Shop by aisle:</span>
-              <button type="button" class="chip" data-fill="eggs, milk, butter, cheddar cheese, Greek yogurt, cream cheese, sour cream">Dairy &amp; eggs</button>
-              <button type="button" class="chip" data-fill="bread, bagels, tortillas, English muffins, pita">Bread &amp; bakery</button>
-              <button type="button" class="chip" data-fill="chicken breast, ground beef, salmon, bacon, pork chops">Meat &amp; seafood</button>
-              <button type="button" class="chip" data-fill="apples, bananas, grapes, broccoli, carrots, spinach, tomatoes">Produce</button>
-              <button type="button" class="chip" data-fill="chips, cookies, chocolate, candy, crackers, popcorn, granola bars">Snacks</button>
-              <button type="button" class="chip" data-fill="orange juice, apple juice, sparkling water, coffee, tea, soda">Drinks</button>
-              <button type="button" class="chip" data-fill="rice, pasta, oats, cereal, peanut butter, olive oil, ketchup, canned tuna">Pantry</button>
-              <button type="button" class="chip" data-fill="frozen pizza, frozen vegetables, ice cream, frozen waffles, frozen meals">Frozen</button>
+              <button type="button" class="chip" data-aisle="dairy">Dairy &amp; Eggs</button>
+              <button type="button" class="chip" data-aisle="bakery">Bread &amp; Bakery</button>
+              <button type="button" class="chip" data-aisle="meat">Meat &amp; Seafood</button>
+              <button type="button" class="chip" data-aisle="produce">Produce</button>
+              <button type="button" class="chip" data-aisle="snacks">Snacks</button>
+              <button type="button" class="chip" data-aisle="drinks">Drinks</button>
+              <button type="button" class="chip" data-aisle="pantry">Pantry</button>
+              <button type="button" class="chip" data-aisle="frozen">Frozen</button>
             </div>
             <div class="mode-select-wrap">
               <select id="shopping-mode" aria-label="Shopping mode">
@@ -56,18 +56,30 @@
               </select>
             </div>
           </div>
+
+          <div id="aisle-catalog" class="aisle-catalog" hidden></div>
+
           <datalist id="product-suggestions">
-            <option value="Doritos Nacho Cheese"></option>
-            <option value="Monster Energy Ultra White"></option>
-            <option value="fairlife Ultra-Filtered Milk"></option>
-            <option value="Oreo Original Cookies"></option>
-            <option value="Quaker Large Flake Oats"></option>
-            <option value="Kraft Peanut Butter"></option>
-            <option value="bread"></option>
             <option value="eggs"></option>
             <option value="milk"></option>
+            <option value="bread"></option>
+            <option value="butter"></option>
+            <option value="cheese"></option>
+            <option value="yogurt"></option>
             <option value="chicken breast"></option>
+            <option value="bananas"></option>
+            <option value="apples"></option>
+            <option value="rice"></option>
             <option value="pasta"></option>
+            <option value="oats"></option>
+            <option value="peanut butter"></option>
+            <option value="orange juice"></option>
+            <option value="chips"></option>
+            <option value="chocolate"></option>
+            <option value="frozen pizza"></option>
+            <option value="coffee"></option>
+            <option value="ketchup"></option>
+            <option value="olive oil"></option>
           </datalist>
         </form>
       </section>
@@ -111,5 +123,120 @@
         });
       });
     </script>
-  </body>
+  <style>
+.aisle-catalog {
+  margin-top: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 16px;
+  animation: fadeUp 200ms ease both;
+}
+.aisle-catalog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.aisle-catalog-title {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.aisle-catalog-close {
+  background: none;
+  border: none;
+  color: var(--ink-3);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0 4px;
+}
+.aisle-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.aisle-item {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 140ms ease;
+}
+.aisle-item:hover { background: var(--green-light); border-color: var(--green); color: var(--green); }
+.aisle-item.selected { background: var(--green); border-color: var(--green); color: #fff; }
+.aisle-search-btn {
+  margin-top: 12px;
+  padding: 8px 20px;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: none;
+}
+.aisle-search-btn:hover { background: var(--green-mid); }
+</style>
+
+<script>
+const aisles = {
+  dairy: { label: "Dairy & Eggs", items: ["Eggs", "Milk", "Butter", "Cheddar cheese", "Mozzarella", "Cream cheese", "Sour cream", "Greek yogurt", "Cottage cheese", "Heavy cream", "Almond milk", "Oat milk"] },
+  bakery: { label: "Bread & Bakery", items: ["White bread", "Whole wheat bread", "Bagels", "English muffins", "Tortillas", "Pita bread", "Croissants", "Dinner rolls", "Sourdough bread", "Hot dog buns"] },
+  meat: { label: "Meat & Seafood", items: ["Chicken breast", "Ground beef", "Salmon", "Bacon", "Pork chops", "Chicken thighs", "Shrimp", "Tilapia", "Steak", "Turkey", "Sausage", "Tuna steaks"] },
+  produce: { label: "Produce", items: ["Bananas", "Apples", "Strawberries", "Grapes", "Broccoli", "Carrots", "Spinach", "Tomatoes", "Avocado", "Bell peppers", "Cucumber", "Onions", "Potatoes", "Garlic", "Lemons", "Blueberries"] },
+  snacks: { label: "Snacks", items: ["Chips", "Cookies", "Chocolate", "Crackers", "Popcorn", "Granola bars", "Pretzels", "Nuts", "Candy", "Rice cakes", "Fruit snacks", "Cheese strings"] },
+  drinks: { label: "Drinks", items: ["Orange juice", "Apple juice", "Sparkling water", "Coffee", "Tea", "Soda", "Gatorade", "Coconut water", "Lemonade", "Iced tea", "Almond milk", "Protein shake"] },
+  pantry: { label: "Pantry", items: ["Rice", "Pasta", "Oats", "Cereal", "Peanut butter", "Olive oil", "Ketchup", "Canned tuna", "Tomato sauce", "Chicken broth", "Flour", "Sugar", "Honey", "Salsa", "Soy sauce", "Mayonnaise"] },
+  frozen: { label: "Frozen", items: ["Frozen pizza", "Frozen vegetables", "Ice cream", "Frozen waffles", "Frozen meals", "Frozen fries", "Edamame", "Frozen fish", "Frozen berries", "Frozen burritos"] }
+};
+
+let selectedAisleItems = [];
+
+document.querySelectorAll('[data-aisle]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const key = btn.dataset.aisle;
+    const aisle = aisles[key];
+    const catalog = document.getElementById('aisle-catalog');
+    selectedAisleItems = [];
+    catalog.hidden = false;
+    catalog.innerHTML = `
+      <div class="aisle-catalog-header">
+        <span class="aisle-catalog-title">${aisle.label} — tap items to add</span>
+        <button class="aisle-catalog-close" onclick="document.getElementById('aisle-catalog').hidden=true">×</button>
+      </div>
+      <div class="aisle-items">
+        ${aisle.items.map(item => `<button type="button" class="aisle-item" data-item="${item}">${item}</button>`).join('')}
+      </div>
+      <button type="button" class="aisle-search-btn" id="aisle-search-go">Search selected items →</button>
+    `;
+    catalog.querySelectorAll('.aisle-item').forEach(itemBtn => {
+      itemBtn.addEventListener('click', () => {
+        const item = itemBtn.dataset.item;
+        if (itemBtn.classList.contains('selected')) {
+          itemBtn.classList.remove('selected');
+          selectedAisleItems = selectedAisleItems.filter(i => i !== item);
+        } else {
+          itemBtn.classList.add('selected');
+          selectedAisleItems.push(item);
+        }
+        const goBtn = document.getElementById('aisle-search-go');
+        goBtn.style.display = selectedAisleItems.length ? 'block' : 'none';
+        goBtn.textContent = `Search ${selectedAisleItems.length} item${selectedAisleItems.length === 1 ? '' : 's'} →`;
+      });
+    });
+    document.getElementById('aisle-search-go').addEventListener('click', () => {
+      document.getElementById('wanted-items').value = selectedAisleItems.join(', ');
+      document.getElementById('aisle-catalog').hidden = true;
+      document.getElementById('agent-form').requestSubmit();
+    });
+  });
+});
+</script>
+</body>
 </html>
