@@ -152,7 +152,7 @@ function showSkeletons(timeline = latestTimeline) {
 }
 
 function showEmptyState() {
-  dashboard.innerHTML = '<div class="state-card"><h2>Start by searching above</h2><p>Enter grocery items separated by commas and we'll find the lowest prices across 7 Oakville stores.</p></div>';
+  dashboard.innerHTML = '<div class="state-card"><h2>Start by searching above</h2><p>Enter grocery items separated by commas to find the lowest prices across 7 Oakville stores.</p></div>';
 }
 
 function renderDashboard(data) {
