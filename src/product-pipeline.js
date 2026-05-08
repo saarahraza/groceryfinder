@@ -618,7 +618,7 @@ function unitResult(value, unit) {
   return {
     normalized_price: normalized,
     normalized_unit: unit,
-    unit_price: `$${normalized.toFixed(2)}${unit}`
+    unit_price: "$" + normalized.toFixed(2) + unit
   };
 }
 
