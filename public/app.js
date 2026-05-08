@@ -84,13 +84,7 @@ async function clearCurrentList() {
 
 function showConnectionState() {
   setStatus("Open the local app server to see live results.", "error");
-  dashboard.innerHTML = `
-    <article class="glass-card card-large fade-in">
-      <p class="label">Server Required</p>
-      <h2 class="store-title">Live results need localhost</h2>
-      <p class="muted">This dashboard talks to the shopping agent API. Open http://localhost:3000/ instead of the file version.</p>
-    </article>
-  `;
+  dashboard.innerHTML = '<div class="state-card"><h2>Server required</h2><p>Open <strong>http://localhost:3000/</strong> instead of the file version.</p></div>';
 }
 
 function startPolling() {
@@ -140,9 +134,9 @@ function showSkeletons(timeline = latestTimeline) {
     ];
   dashboard.innerHTML = "";
   const terminal = document.createElement("article");
-  terminal.className = "glass-card card-large terminal-card";
+  terminal.className = "terminal-card";
   terminal.innerHTML = `
-    <p class="label">Global Search Router</p>
+    <p class="terminal-label">Searching across 7 stores</p>
     <div class="terminal-window" aria-live="polite">
       ${rows.slice(-6).map((row, index) => `
         <p class="${index === rows.slice(-6).length - 1 ? "current" : "done"}">
@@ -158,13 +152,7 @@ function showSkeletons(timeline = latestTimeline) {
 }
 
 function showEmptyState() {
-  dashboard.innerHTML = `
-    <article class="glass-card card-large fade-in">
-      <p class="label">No run yet</p>
-      <h2 class="store-title">Build the cheapest path from live flyer data</h2>
-      <p class="muted">Enter a grocery list and run the agent to populate this bento grid.</p>
-    </article>
-  `;
+  dashboard.innerHTML = '<div class="state-card"><h2>Start by searching above</h2><p>Enter grocery items separated by commas and we'll find the lowest prices across 7 Oakville stores.</p></div>';
 }
 
 function renderDashboard(data) {
@@ -176,21 +164,20 @@ function renderDashboard(data) {
   currentData = data;
   dashboard.innerHTML = "";
   const savingsCard = document.createElement("article");
-  savingsCard.className = "glass-card card-large savings-card hero-metric fade-in";
+  savingsCard.className = "savings-hero";
   savingsCard.innerHTML = `
     <div>
-      <p class="label">Estimated Savings</p>
-      <p class="savings-value">$<span id="savings-counter">0.00</span></p>
+      <p class="savings-hero-label">Estimated savings</p>
+      <p class="savings-hero-value">$<span id="savings-counter">0.00</span></p>
     </div>
-    <div class="savings-meta">
-      <span><strong>$${money(data.totals.projected_spend)}</strong> projected spend</span>
-      <span><strong>${data.totals.item_count}</strong> matched items</span>
-      <span><strong>${data.totals.store_count}</strong> stop${data.totals.store_count === 1 ? "" : "s"}</span>
-      <span><strong>${escapeHtml(formatMode(data.mode))}</strong></span>
+    <div class="savings-hero-meta">
+      <span class="savings-meta-item"><strong>${money(data.totals.projected_spend)}</strong> total</span>
+      <span class="savings-meta-item"><strong>${data.totals.item_count}</strong> items</span>
+      <span class="savings-meta-item"><strong>${data.totals.store_count}</strong> stop${data.totals.store_count === 1 ? "" : "s"}</span>
     </div>
-    <div class="savings-actions">
-      <button type="button" data-rerun-current>Rerun this list</button>
-      <button type="button" data-print-list>Printable list</button>
+    <div class="savings-hero-actions">
+      <button type="button" class="btn-rerun" data-rerun-current>Rerun</button>
+      <button type="button" class="btn-ghost" data-print-list>Print</button>
     </div>
   `;
   dashboard.append(savingsCard);
@@ -198,28 +185,21 @@ function renderDashboard(data) {
   dashboard.append(renderStatsCard(data));
 
   const sectionHeader = document.createElement("article");
-  sectionHeader.className = "feed-header fade-in";
-  sectionHeader.innerHTML = `
-    <div>
-      <p class="label">Live Feed</p>
-      <h2>Search-to-action results</h2>
-    </div>
-    <p>${flattenResultItems(data).length} product card${flattenResultItems(data).length === 1 ? "" : "s"} ready for review</p>
-  `;
+  sectionHeader.innerHTML = `<p class="feed-label">${flattenResultItems(data).length} result${flattenResultItems(data).length === 1 ? "" : "s"} found across 7 stores</p>`;
   dashboard.append(sectionHeader);
 
+  const productsGrid = document.createElement('div');
+  productsGrid.className = 'products-grid';
   flattenResultItems(data).forEach(({ item, store }, index) => {
-    dashboard.append(renderProductResultCard(item, store, index));
+    productsGrid.append(renderProductResultCard(item, store, index));
   });
+  dashboard.append(productsGrid);
 
   if (data.unmatched_items.length) {
     const unmatched = document.createElement("article");
-    unmatched.className = "glass-card card-small fade-in";
+    unmatched.className = "unmatched-card";
     unmatched.style.animationDelay = "520ms";
-    unmatched.innerHTML = `
-      <p class="label">Still Hunting</p>
-      <p>${data.unmatched_items.join(", ")}</p>
-    `;
+    unmatched.innerHTML = `<strong>No match found for:</strong> ${data.unmatched_items.join(", ")} — try a more specific name.`;
     dashboard.append(unmatched);
   }
 
@@ -241,15 +221,11 @@ function renderStatsCard(data) {
     .sort((a, b) => a.price - b.price)[0]?.store || stores[0] || "Scanning";
   const inflation = simulatedInflation(data);
   const card = document.createElement("article");
-  card.className = "glass-card stats-card fade-in";
+  card.className = "summary-bar";
   card.innerHTML = `
-    <p class="label">Market Stats</p>
-    <h2>Today in Oakville</h2>
-    <div class="stat-stack">
-      <div><span>Total items scanned</span><strong>${data.comparisons.reduce((sum, item) => sum + (item.candidates?.length || 0), 0)}</strong></div>
-      <div><span>Cheapest retailer</span><strong>${escapeHtml(cheapestStore)}</strong></div>
-      <div><span>Inflation tracker</span><strong class="${inflation >= 0 ? "up" : "down"}">${inflation >= 0 ? "+" : ""}${inflation.toFixed(1)}%</strong></div>
-    </div>
+    <div class="summary-stat"><p class="stat-label">Items scanned</p><p class="stat-value">${data.comparisons.reduce((sum, item) => sum + (item.candidates?.length || 0), 0)}</p></div>
+    <div class="summary-stat"><p class="stat-label">Best store</p><p class="stat-value" style="font-size:1rem;padding-top:4px">${escapeHtml(cheapestStore)}</p></div>
+    <div class="summary-stat"><p class="stat-label">Inflation est.</p><p class="stat-value ${inflation >= 0 ? "" : "green"}">${inflation >= 0 ? "+" : ""}${inflation.toFixed(1)}%</p></div>
   `;
   return card;
 }
@@ -257,30 +233,28 @@ function renderStatsCard(data) {
 function renderProductResultCard(item, store, index) {
   const selected = isSelectedItem(item);
   const card = document.createElement("article");
-  card.className = "glass-card product-result-card fade-in";
+  card.className = "product-card";
   card.style.animationDelay = `${140 + index * 100}ms`;
   card.innerHTML = `
-    <div class="product-card-media">
-      <button type="button" class="product-image-link" data-info-kind="product" data-store="${escapeAttribute(store.store)}" data-item="${escapeAttribute(item.item_name)}" aria-label="Show product info for ${escapeAttribute(item.item_name)}">
-        <img src="${escapeAttribute(item.image_url || fallbackImage(item.item_name))}" alt="${escapeAttribute(item.item_name)}" loading="lazy" />
+    <div class="product-card-img">
+      <button type="button" style="display:block;width:100%;height:100%;padding:0;border:none;background:none;cursor:pointer" data-info-kind="product" data-store="${escapeAttribute(store.store)}" data-item="${escapeAttribute(item.item_name)}" aria-label="Details for ${escapeAttribute(item.item_name)}">
+        <img src="${escapeAttribute(item.image_url || fallbackImage(item.item_name))}" alt="${escapeAttribute(item.item_name)}" loading="lazy" style="width:100%;height:100%;object-fit:cover" />
       </button>
-      <div class="trust-row">
-        ${renderBadge(item.confidence === "Live price" || item.exact_barcode_match ? "Verified API" : item.confidence || "Estimated")}
-        ${item.niche_brand ? renderBadge("Niche Brand") : ""}
-      </div>
+      ${index === 0 ? '<span class="best-deal-badge">Best price</span>' : ''}
     </div>
     <div class="product-card-body">
-      <p class="store-kicker">${escapeHtml(store.store)} · ${escapeHtml(item.brand || "Brand varies")}</p>
-      <h3>${escapeHtml(item.item_name)}</h3>
-      <p class="product-card-copy">${item.quantity || 1}x · ${escapeHtml(item.unit_price || `${money(item.normalized_price)}${item.normalized_unit}`)} · ${item.savings_percent}% below market</p>
-      <div class="result-metrics">
-        <span><strong>$${money(item.line_total || item.price)}</strong>${item.quantity > 1 ? `$${money(item.price)} ea` : item.unit}</span>
-        <span><strong>${Math.round(item.trust_score || 55)}</strong> trust</span>
+      <p class="product-store">${escapeHtml(store.store)}</p>
+      <p class="product-name">${escapeHtml(item.item_name)}</p>
+      <p class="product-brand">${escapeHtml(item.brand || "Brand varies")}</p>
+      <div class="product-price-row">
+        <span class="product-price">${money(item.line_total || item.price)}</span>
+        <span class="product-unit">${escapeHtml(item.unit)}</span>
       </div>
-      <div class="result-actions">
-        <button type="button" data-add-selected="${escapeAttribute(item.item_name)}" data-store="${escapeAttribute(store.store)}">${selected ? "Added" : "Add to Optimized List"}</button>
-        <button type="button" class="quiet" data-info-kind="product" data-store="${escapeAttribute(store.store)}" data-item="${escapeAttribute(item.item_name)}">Details</button>
-        <button type="button" class="quiet" data-watch-price="${escapeAttribute(item.item_name)}" data-watch-price-value="${escapeAttribute(item.price)}">Watch</button>
+      ${item.savings_percent > 0 ? `<p class="product-saving">${item.savings_percent}% below market avg</p>` : ''}
+      <div class="product-actions">
+        <button type="button" class="btn-add ${selected ? 'added' : ''}" data-add-selected="${escapeAttribute(item.item_name)}" data-store="${escapeAttribute(store.store)}">${selected ? 'Added' : '+ Add'}</button>
+        <button type="button" class="btn-details" data-info-kind="product" data-store="${escapeAttribute(store.store)}" data-item="${escapeAttribute(item.item_name)}">Details</button>
+        <button type="button" class="btn-watch" data-watch-price="${escapeAttribute(item.item_name)}" data-watch-price-value="${escapeAttribute(item.price)}">Watch</button>
       </div>
     </div>
     <div class="info-panel" data-info-panel="${escapeAttribute(store.store)}" hidden></div>
@@ -543,7 +517,7 @@ function renderRetentionCards() {
   const lists = getSavedLists();
   const alerts = getAlerts();
   const card = document.createElement("article");
-  card.className = "glass-card card-medium retention-card fade-in";
+  card.className = "retention-section";
   card.innerHTML = `
     <div class="retention-heading">
       <div>
@@ -586,25 +560,23 @@ function renderRetentionCards() {
 
 function renderSourcingActions() {
   const selected = getSelectedItems();
-  const card = document.createElement("article");
-  card.className = "glass-card sourcing-card fade-in";
-  card.innerHTML = `
-    <div>
-      <p class="label">Optimized List</p>
-      <h2>Sourcing report</h2>
-      <p class="muted">${selected.length ? `${selected.length} selected item${selected.length === 1 ? "" : "s"} ready to export.` : "Add product cards to build a report for checkout or sourcing."}</p>
-    </div>
-    <div class="selected-items">
-      ${selected.length ? selected.map((item) => `
-        <div>
-          <span><strong>${escapeHtml(item.item_name)}</strong><small>${escapeHtml(item.store)} · $${money(item.price)}</small></span>
-          <button type="button" data-remove-selected="${escapeAttribute(item.item_name)}">Remove</button>
+  const sidebar = document.getElementById('sidebar-content');
+  if (!sidebar) return;
+  const total = selected.reduce((sum, item) => sum + (item.price || 0), 0);
+  sidebar.innerHTML = selected.length ? `
+    <div class="sidebar-header"><h2>Your list · ${selected.length} item${selected.length === 1 ? '' : 's'}</h2></div>
+    ${selected.map((item) => `
+      <div class="sidebar-item">
+        <div><p class="sidebar-item-name">${escapeHtml(item.item_name)}</p><p class="sidebar-item-sub">${escapeHtml(item.store)}</p></div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="sidebar-item-price">${money(item.price)}</span>
+          <button type="button" class="btn-ghost" data-remove-selected="${escapeAttribute(item.item_name)}" style="padding:4px 8px;font-size:0.72rem">✕</button>
         </div>
-      `).join("") : "<p class=\"empty-retention\">No selected items yet.</p>"}
-    </div>
-    <button type="button" class="report-button" data-export-report ${selected.length ? "" : "disabled"}>Generate Sourcing Report CSV</button>
-  `;
-  dashboard.append(card);
+      </div>
+    `).join('')}
+    <div class="sidebar-total"><span>Total estimate</span><span class="sidebar-total-value">${money(total)}</span></div>
+    <button type="button" class="btn-export" data-export-report>Download CSV</button>
+  ` : `<div class="sidebar-inner"><p class="sidebar-empty-label">Your list</p><p class="sidebar-empty-text">Add items from search results to build your shopping list.</p></div>`;
 }
 
 function getSelectedItems() {
