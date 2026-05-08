@@ -297,13 +297,13 @@ function inferStore(text) {
   return stores.find((store) => text.toLowerCase().includes(store.toLowerCase())) || "Local Flyer";
 }
 
-function enrichDeal(deal) {
+async function enrichDeal(deal) {
   const store = storeSources[deal.store] || {
     store_url: "https://flipp.com/flyers",
     flyer_url: "https://flipp.com/flyers",
     brand_summary: "Local flyer result found through a flyer source. Confirm store availability and dates before shopping."
   };
-  const product = productProfiles.find((source) => source.match.test(deal.item_name)) || genericProductProfile(deal.item_name);
+  const product = productProfiles.find((source) => source.match.test(deal.item_name)) || await genericProductProfile(deal.item_name);
   return {
     ...deal,
     ...store,
@@ -319,7 +319,7 @@ function enrichDeal(deal) {
 
 async function buildDemoDeals(postalCode, wantedItems) {
   const wanted = [...new Set(wantedItems.map((item) => item.trim()).filter(Boolean))];
-  const seeded = demoDeals.map((deal) => enrichDeal({ ...deal, postal_code: postalCode }));
+  const seeded = await Promise.all(demoDeals.map((deal) => enrichDeal({ ...deal, postal_code: postalCode })));
   const additions = (await Promise.all(wanted.map(async (item) => {
     const alreadyCovered = seeded.some((deal) => isSameGrocery(deal.item_name, item));
     return alreadyCovered ? [] : await synthesizeDealsForItem(item, postalCode);
@@ -329,7 +329,7 @@ async function buildDemoDeals(postalCode, wantedItems) {
 
 async function synthesizeDealsForItem(itemName, postalCode) {
   const profile = productProfiles.find((source) => source.match.test(itemName)) || await genericProductProfile(itemName);
-  return Object.keys(storeSources).map((storeName, index) => enrichDeal({
+  return Promise.all(Object.keys(storeSources).map((storeName, index) => enrichDeal({
     store: storeName,
     item_name: displayItemName(itemName, profile),
     brand: profile.brand,
