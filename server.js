@@ -79,8 +79,7 @@ app.get("/api/resolve-product", async (req, res) => {
   }
 
   try {
-    const resolvedUrl = await resolveExactProductUrl(sourceUrl, query);
-    res.json({ sourceUrl, resolvedUrl, exact: resolvedUrl !== sourceUrl });
+    res.json({ sourceUrl, resolvedUrl: sourceUrl, exact: false });
   } catch (error) {
     res.json({ sourceUrl, resolvedUrl: sourceUrl, exact: false, warning: error.message });
   }
