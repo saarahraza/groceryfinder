@@ -508,7 +508,7 @@ function toDeal(product, storeConfig, postalCode, source) {
     image_url: product.image_url,
     category: product.category || "Grocery",
     nutrition: product.nutrition,
-    product_summary: product.product_summary || `${product.item_name} identified through ${product.lookup_phase || source}.`,
+    product_summary: product.product_summary || `${product.item_name || "This item"} — price comparison across Oakville stores.`,
     product_url: product.product_url || storeConfig.searchUrl(product.item_name),
     store_url: storeConfig.store_url,
     flyer_url: storeConfig.flyer_url,
