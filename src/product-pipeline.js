@@ -509,7 +509,7 @@ function toDeal(product, storeConfig, postalCode, source) {
     category: product.category || "Grocery",
     nutrition: product.nutrition,
     product_summary: product.product_summary || `${product.item_name} identified through ${product.lookup_phase || source}.`,
-    product_url: product.product_url || storeConfig.searchUrl(product.input || product.wanted_item || product.item_name),
+    product_url: product.product_url || buildExactStoreUrl(storeConfig.store, product.item_name, product.brand, product.input || product.wanted_item),
     store_url: storeConfig.store_url,
     flyer_url: storeConfig.flyer_url,
     postal_code: postalCode,
@@ -703,6 +703,19 @@ function isRelevantProduct(product, input) {
   }, input) >= minimumCandidateScore(input);
 }
 
+
+
+function buildExactStoreUrl(store, itemName, brand, userInput) {
+  const full = encodeURIComponent(itemName || userInput || "");
+  const generic = encodeURIComponent(userInput || itemName || "");
+  if (store === "No Frills") return `https://www.nofrills.ca/en/search?search-bar=${full}`;
+  if (store === "Metro") return `https://www.metro.ca/en/online-grocery/search?filter=${full}`;
+  if (store === "Food Basics") return `https://www.foodbasics.ca/search-page.en.html?search=${full}`;
+  if (store === "Walmart") return `https://www.walmart.ca/search?q=${full}&sort=price_asc`;
+  if (store === "Sobeys" || store === "FreshCo") return `https://voila.ca/search?q=${full}&sort=price`;
+  if (store === "Real Canadian Superstore") return `https://www.realcanadiansuperstore.ca/search?search-bar=${full}`;
+  return `https://flipp.com/search/${generic}`;
+}
 
 function guessProductCategory(input) {
   const t = input.toLowerCase();
