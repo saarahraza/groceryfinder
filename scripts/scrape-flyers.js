@@ -320,10 +320,14 @@ async function enrichDeal(deal) {
 async function buildDemoDeals(postalCode, wantedItems) {
   const wanted = [...new Set(wantedItems.map((item) => item.trim()).filter(Boolean))];
   const seeded = await Promise.all(demoDeals.map((deal) => enrichDeal({ ...deal, postal_code: postalCode })));
-  const additions = (await Promise.all(wanted.map(async (item) => {
+  const additions = [];
+  for (const item of wanted) {
     const alreadyCovered = seeded.some((deal) => isSameGrocery(deal.item_name, item));
-    return alreadyCovered ? [] : await synthesizeDealsForItem(item, postalCode);
-  }))).flat();
+    if (!alreadyCovered) {
+      const deals = await synthesizeDealsForItem(item, postalCode);
+      additions.push(...deals);
+    }
+  }
   return [...seeded, ...additions];
 }
 
