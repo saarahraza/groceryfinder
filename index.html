@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flyer-to-Bento Shopping Agent</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">Oakville L6H · Global Product Router</p>
+          <h1>Search-to-Action Grocery Dashboard</h1>
+          <p class="hero-copy">Search a product, compare trusted brand registry data against local retailers, add winners to your optimized list, and export a sourcing report.</p>
+        </div>
+        <form id="agent-form" class="agent-form">
+          <label for="wanted-items">Command Bar</label>
+          <div class="input-row">
+            <input id="wanted-items" type="text" value="2 fairlife, 3 Monster Energy, 1 bread" aria-label="Wanted grocery items" list="product-suggestions" />
+            <button type="submit">Search</button>
+          </div>
+          <div class="mode-row">
+            <select id="shopping-mode" aria-label="Shopping mode">
+              <option value="cheapest">Cheapest</option>
+              <option value="fewest_stops">Fewest stops</option>
+              <option value="closest">Closest stores</option>
+              <option value="exact_brands">Exact brands only</option>
+            </select>
+            <button type="button" id="print-list">Print list</button>
+            <button type="button" id="clear-list">Clear list</button>
+          </div>
+          <datalist id="product-suggestions">
+            <option value="Doritos Nacho Cheese"></option>
+            <option value="Cheetos Crunchy Cheese Snacks"></option>
+            <option value="Cheetos Puffs"></option>
+            <option value="Cheetos Flamin Hot"></option>
+            <option value="Monster Energy Ultra White"></option>
+            <option value="Takis Fuego"></option>
+            <option value="fairlife Ultra-Filtered Milk"></option>
+            <option value="Oreo Original Cookies"></option>
+            <option value="bread"></option>
+            <option value="cauliflower"></option>
+            <option value="grapes"></option>
+          </datalist>
+        </form>
+      </section>
+
+      <section class="status-strip" aria-live="polite">
+        <span id="status-dot" class="status-dot"></span>
+        <span id="status-copy">Ready to scan local flyers.</span>
+      </section>
+
+      <section id="dashboard" class="bento-grid"></section>
+    </main>
+
+    <template id="skeleton-template">
+      <article class="glass-card skeleton-card">
+        <div class="skeleton skeleton-title"></div>
+        <p class="skeleton-copy">Hunting for the best price</p>
+        <div class="skeleton skeleton-line"></div>
+        <div class="skeleton skeleton-line short"></div>
+        <div class="skeleton skeleton-price"></div>
+      </article>
+    </template>
+
+    <script src="app.js?v=2026-05-08-search-action" type="module"></script>
+  </body>
+</html>
