@@ -341,7 +341,7 @@ async function synthesizeDealsForItem(itemName, postalCode) {
     unit: profile.unit,
     postal_code: postalCode,
     source: "estimated-demo"
-  }));
+  })));
 }
 
 
