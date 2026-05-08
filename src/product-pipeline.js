@@ -517,9 +517,9 @@ function toDeal(product, storeConfig, postalCode, source) {
   const checkedAt = new Date().toISOString();
   const exactBarcodeMatch = Boolean(product.barcode && /^\d{8,14}$/.test(String(product.input || "")));
   return {
-    item_name: product.item_name,
-    wanted_item: product.input || product.wanted_item || product.item_name,
-    brand: product.brand || "Brand varies",
+    item_name: (product.item_name && product.item_name !== "undefined") ? product.item_name : displayCase(product.input || product.wanted_item || "Grocery Item"),
+    wanted_item: product.input || product.wanted_item || product.item_name || "item",
+    brand: (!product.brand || product.brand === "undefined" || product.brand === "Brand varies") ? (displayCase((product.input || "").split(" ")[0]) || "Store Brand") : product.brand,
     store: storeConfig.store,
     price: roundMoney(product.price),
     unit: product.unit || "/ea",
@@ -529,7 +529,7 @@ function toDeal(product, storeConfig, postalCode, source) {
     image_url: product.image_url,
     category: product.category || "Grocery",
     nutrition: product.nutrition,
-    product_summary: product.product_summary || `${product.item_name} identified through ${product.lookup_phase || source}.`,
+    product_summary: (product.product_summary && !product.product_summary.includes("undefined")) ? product.product_summary : `${(product.item_name && product.item_name !== "undefined") ? product.item_name : "This item"} — price comparison across Oakville stores.``,
     product_url: product.product_url || buildExactStoreUrl(storeConfig.store, product.item_name, product.brand, product.input || product.wanted_item),
     store_url: storeConfig.store_url,
     flyer_url: storeConfig.flyer_url,
