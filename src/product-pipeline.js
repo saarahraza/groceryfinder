@@ -784,10 +784,19 @@ function fuzzyIdentity(input) {
       confidence_score: roundMoney(best.score)
     };
   }
+  const guessed = guessProductCategory(input);
+  const cleanName = displayCase(input);
   return {
     ...fallbackProfile(input),
     canonical: input,
     input,
+    item_name: cleanName,
+    brand: cleanName.split(" ")[0] || "Store Brand",
+    category: guessed.category,
+    base_price: guessed.base_price,
+    unit: guessed.unit,
+    image_url: guessed.image_url,
+    product_summary: cleanName + " — price comparison across Oakville stores.",
     lookup_phase: "fuzzy_input"
   };
 }
