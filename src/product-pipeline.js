@@ -509,7 +509,7 @@ function toDeal(product, storeConfig, postalCode, source) {
     category: product.category || "Grocery",
     nutrition: product.nutrition,
     product_summary: product.product_summary || `${product.item_name} identified through ${product.lookup_phase || source}.`,
-    product_url: product.product_url || storeConfig.searchUrl(product.item_name),
+    product_url: product.product_url || storeConfig.searchUrl(product.input || product.wanted_item || product.item_name),
     store_url: storeConfig.store_url,
     flyer_url: storeConfig.flyer_url,
     postal_code: postalCode,
