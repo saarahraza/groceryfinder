@@ -498,7 +498,7 @@ function toDeal(product, storeConfig, postalCode, source) {
   return {
     item_name: product.item_name,
     wanted_item: product.input || product.wanted_item || product.item_name,
-    brand: product.brand || "Brand varies",
+    brand: (!product.brand || product.brand === "undefined") ? "Store Brand" : product.brand,
     store: storeConfig.store,
     price: roundMoney(product.price),
     unit: product.unit || "/ea",
