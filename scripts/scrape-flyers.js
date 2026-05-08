@@ -188,7 +188,7 @@ const productProfiles = [
     category: "Bread and bakery",
     product_summary: "Bagels are a round bread product. Compare pack sizes as 6-packs often have better unit pricing.",
     nutrition: { serving: "1 bagel", calories: 270, protein: "10g", carbs: "53g", fat: "1.5g" },
-    base_price: 3.99,
+    base_price: 3.71,
     unit: "/6pk"
   },
   {
