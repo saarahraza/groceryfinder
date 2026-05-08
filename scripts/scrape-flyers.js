@@ -168,6 +168,18 @@ const productProfiles = [
     unit: "/280g bag"
   },
   {
+    match: /oreo/i,
+    brand: "Oreo",
+    image_url: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=900&q=80",
+    image_credit: "Unsplash cookie photo",
+    search_term: "Oreo cookies",
+    category: "Cookies and snacks",
+    product_summary: "Oreo is a classic sandwich cookie. Compare pack sizes as family packs often have a better unit price.",
+    nutrition: { serving: "3 cookies", calories: 160, protein: "1g", carbs: "25g", fat: "7g" },
+    base_price: 4.99,
+    unit: "/432g"
+  },
+  {
     match: /fairlife/i,
     brand: "fairlife",
     image_url: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=900&q=80",
