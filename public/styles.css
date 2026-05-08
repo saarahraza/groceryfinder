@@ -81,7 +81,7 @@ h1 em { font-style: italic; color: var(--green); }
 .summary-stat .stat-value.green { color: var(--green); }
 .feed-label { font-size: 0.72rem; font-weight: 500; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 14px; }
 .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-bottom: 32px; }
-.product-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: visible; display: grid; grid-template-rows: 140px 1fr; transition: box-shadow 160ms ease, transform 160ms ease; animation: fadeUp 360ms cubic-bezier(0.22,1,0.36,1) both; }
+.product-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: visible; position: relative; display: grid; grid-template-rows: 140px 1fr; transition: box-shadow 160ms ease, transform 160ms ease; animation: fadeUp 360ms cubic-bezier(0.22,1,0.36,1) both; }
 .product-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 .product-card-img { position: relative; overflow: hidden; background: var(--surface-3); border-radius: var(--r-lg) var(--r-lg) 0 0; }
@@ -190,3 +190,41 @@ h1 em { font-style: italic; color: var(--green); }
 @media (max-width: 900px) { .results-layout { grid-template-columns: 1fr; } .results-sidebar { position: static; } .summary-bar { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 640px) { .app-shell { padding: 0 16px 48px; } .hero { padding: 32px 0 28px; } h1 { font-size: 1.8rem; } .search-bar { border-radius: var(--r-md); } .btn-search span { display: none; } .btn-search { padding: 10px 14px; } .search-meta { flex-direction: column; align-items: flex-start; gap: 8px; } .products-grid { grid-template-columns: 1fr 1fr; } .summary-bar { grid-template-columns: 1fr; } .header-location { display: none; } .info-panel-inner { grid-template-columns: 1fr; } .info-panel dl { grid-template-columns: 1fr; } .source-row { grid-template-columns: 1fr; } .nutrition-box { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 400px) { .products-grid { grid-template-columns: 1fr; } }
+
+.info-panel {
+  margin-top: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  width: 100%;
+  overflow-x: hidden;
+}
+.info-panel-inner {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+.info-panel-inner > div {
+  min-width: 0;
+  overflow: hidden;
+}
+.info-panel dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 10px 0;
+  width: 100%;
+}
+.info-panel dl div {
+  background: var(--surface-3);
+  border-radius: var(--r-sm);
+  padding: 8px 10px;
+  min-width: 0;
+  overflow: hidden;
+}
+.info-panel dd {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

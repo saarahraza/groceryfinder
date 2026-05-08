@@ -329,12 +329,12 @@ function renderInfoPanel(store, item, kind, sourceButton) {
     <div class="info-panel-inner">
       ${kind === "product" ? `<img src="${escapeAttribute(item.image_url || fallbackImage(item.item_name))}" alt="${escapeAttribute(item.item_name)}" />` : ""}
       <div>
-        <p class="label">${kind === "product" ? escapeHtml(item.category || "Product") : kind === "flyer" ? "Flyer Source" : "Brand Source"}</p>
-        <h3>${escapeHtml(title)}</h3>
-        <p>${escapeHtml(copy || "Source information is available for this result.")}</p>
+        <p class="label">${kind === "product" ? escapeHtml(item.category || "Grocery") : kind === "flyer" ? "Flyer Source" : "Brand Source"}</p>
+        <h3>${escapeHtml(!title || title === "undefined" || title === "Undefined" ? "Grocery Item" : title)}</h3>
+        <p>${escapeHtml(!copy || copy.includes("undefined") ? "Price comparison across Oakville stores." : copy)}</p>
         ${kind === "product" ? `
           <dl>
-            <div><dt>Brand</dt><dd>${escapeHtml(item.brand || "Brand varies")}</dd></div>
+            <div><dt>Brand</dt><dd>${escapeHtml(!item.brand || item.brand === "undefined" || item.brand === "Undefined" ? "Store Brand" : item.brand)}</dd></div>
             <div><dt>Store</dt><dd>${escapeHtml(store.store)}</dd></div>
             <div><dt>Deal</dt><dd>$${money(item.price)}${escapeHtml(item.unit)}</dd></div>
             <div><dt>Unit basis</dt><dd>${escapeHtml(item.unit_price || `${money(item.normalized_price)}${item.normalized_unit}`)}</dd></div>
